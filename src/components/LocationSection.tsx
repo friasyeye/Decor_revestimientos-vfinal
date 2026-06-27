@@ -1,11 +1,40 @@
+"use client";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export function LocationSection() {
+  const photoRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const [photoVis, setPhotoVis] = useState(false);
+  const [textVis, setTextVis] = useState(false);
+
+  useEffect(() => {
+    const obs = (ref: React.RefObject<HTMLDivElement | null>, setter: (v: boolean) => void) => {
+      const el = ref.current;
+      if (!el) return;
+      const o = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) { setter(true); o.disconnect(); } },
+        { threshold: 0.15 }
+      );
+      o.observe(el);
+      return o;
+    };
+    obs(photoRef, setPhotoVis);
+    obs(textRef, setTextVis);
+  }, []);
+
   return (
-    <section style={{ backgroundColor: "#dfe5d7" }}>
-      {/* Photos row — flush, no horizontal padding */}
-      <div className="mb-16 grid grid-cols-1 gap-2 md:grid-cols-[1fr_2fr]">
-        {/* Narrower photo */}
+    <section style={{ backgroundColor: "#dfe5d7", paddingTop: 24 }}>
+      {/* Photos row */}
+      <div
+        ref={photoRef}
+        className="mb-16 grid grid-cols-1 gap-2 md:grid-cols-[1fr_2fr]"
+        style={{
+          opacity: photoVis ? 1 : 0,
+          transform: photoVis ? "translateY(0)" : "translateY(40px)",
+          transition: "opacity 0.8s ease, transform 0.8s ease",
+        }}
+      >
         <div className="overflow-hidden rounded-2xl">
           <Image
             src="/images/3iC1MXJJcUe9OZi5KP7RvyfbzXE.jpg"
@@ -15,7 +44,6 @@ export function LocationSection() {
             className="h-[400px] w-full object-cover"
           />
         </div>
-        {/* Wider photo */}
         <div className="overflow-hidden rounded-2xl">
           <Image
             src="/images/qi31jTCjPGBFLq2Bsxyr7jMEt3U.jpg"
@@ -28,13 +56,22 @@ export function LocationSection() {
       </div>
 
       {/* Text block */}
-      <div className="px-6 pb-20 md:px-20">
+      <div
+        ref={textRef}
+        className="px-6 pb-20 md:px-20"
+        style={{
+          opacity: textVis ? 1 : 0,
+          transform: textVis ? "translateY(0)" : "translateY(32px)",
+          transition: "opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s",
+        }}
+      >
         <h2
           className="mb-3 text-center italic"
           style={{
-            fontFamily: "'Instrument Serif', serif",
+            fontFamily: "'Instrument Serif', Georgia, serif",
             fontSize: "clamp(36px, 5vw, 56px)",
             color: "#0d120b",
+            letterSpacing: "-0.3px",
           }}
         >
           Set in the Heart of Tuscany
@@ -52,7 +89,7 @@ export function LocationSection() {
         </p>
 
         <p
-          className="mx-auto mb-4 max-w-2xl text-center"
+          className="mx-auto mb-4 max-w-2xl text-center leading-relaxed"
           style={{
             fontFamily: "'Satoshi', sans-serif",
             fontSize: "18px",
@@ -63,7 +100,7 @@ export function LocationSection() {
         </p>
 
         <p
-          className="mx-auto max-w-2xl text-center"
+          className="mx-auto max-w-2xl text-center leading-relaxed"
           style={{
             fontFamily: "'Satoshi', sans-serif",
             fontSize: "18px",

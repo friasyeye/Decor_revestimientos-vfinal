@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InstagramIcon, PhoneIcon, MailIcon } from "./icons";
 
 const faqs = [
@@ -32,16 +32,42 @@ const faqs = [
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const accordionRef = useRef<HTMLDivElement>(null);
+  const [sidebarVis, setSidebarVis] = useState(false);
+  const [accordionVis, setAccordionVis] = useState(false);
+
+  useEffect(() => {
+    const obs = (ref: React.RefObject<HTMLDivElement | null>, setter: (v: boolean) => void) => {
+      const el = ref.current;
+      if (!el) return;
+      const o = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) { setter(true); o.disconnect(); } },
+        { threshold: 0.15 }
+      );
+      o.observe(el);
+      return o;
+    };
+    obs(sidebarRef, setSidebarVis);
+    obs(accordionRef, setAccordionVis);
+  }, []);
 
   const toggle = (i: number) => {
     setOpenIndex((prev) => (prev === i ? null : i));
   };
 
   return (
-    <section className="px-6 py-20 md:px-20" style={{ backgroundColor: "#dfe5d7" }}>
+    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#dfe5d7" }}>
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-20 items-start">
         {/* Left sidebar */}
-        <div>
+        <div
+          ref={sidebarRef}
+          style={{
+            opacity: sidebarVis ? 1 : 0,
+            transform: sidebarVis ? "translateY(0)" : "translateY(32px)",
+            transition: "opacity 0.8s ease, transform 0.8s ease",
+          }}
+        >
           <p
             className="text-[18px] mb-6 leading-relaxed"
             style={{
@@ -57,7 +83,7 @@ export function FAQSection() {
           <div className="flex gap-3">
             {/* Instagram */}
             <button
-              className="flex items-center justify-center rounded-full shrink-0"
+              className="flex items-center justify-center rounded-full shrink-0 transition-transform hover:scale-110"
               style={{
                 width: 48,
                 height: 48,
@@ -70,7 +96,7 @@ export function FAQSection() {
             </button>
             {/* Phone */}
             <button
-              className="flex items-center justify-center rounded-full shrink-0"
+              className="flex items-center justify-center rounded-full shrink-0 transition-transform hover:scale-110"
               style={{
                 width: 48,
                 height: 48,
@@ -83,7 +109,7 @@ export function FAQSection() {
             </button>
             {/* Mail */}
             <button
-              className="flex items-center justify-center rounded-full shrink-0"
+              className="flex items-center justify-center rounded-full shrink-0 transition-transform hover:scale-110"
               style={{
                 width: 48,
                 height: 48,
@@ -98,11 +124,18 @@ export function FAQSection() {
         </div>
 
         {/* Right accordion */}
-        <div>
+        <div
+          ref={accordionRef}
+          style={{
+            opacity: accordionVis ? 1 : 0,
+            transform: accordionVis ? "translateY(0)" : "translateY(32px)",
+            transition: "opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s",
+          }}
+        >
           {faqs.map((item, i) => (
             <div
               key={i}
-              className="py-5 cursor-pointer"
+              className="py-5 cursor-pointer transition-colors hover:bg-opacity-50"
               style={{ borderBottom: "1px solid rgba(13,18,11,0.2)" }}
               onClick={() => toggle(i)}
             >
@@ -117,7 +150,7 @@ export function FAQSection() {
                   {item.q}
                 </p>
                 <div
-                  className="flex items-center justify-center rounded-full shrink-0 select-none"
+                  className="flex items-center justify-center rounded-full shrink-0 select-none transition-transform"
                   style={{
                     width: 32,
                     height: 32,
@@ -125,6 +158,7 @@ export function FAQSection() {
                     color: "#dfe5d7",
                     fontSize: 20,
                     lineHeight: 1,
+                    transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)",
                   }}
                 >
                   {openIndex === i ? "−" : "+"}
@@ -136,6 +170,7 @@ export function FAQSection() {
                   style={{
                     fontFamily: "Satoshi, ui-sans-serif, sans-serif",
                     color: "#2c3229",
+                    animation: "fadeIn 0.3s ease",
                   }}
                 >
                   {item.a}
