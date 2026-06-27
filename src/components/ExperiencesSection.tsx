@@ -42,133 +42,145 @@ const experiences: Experience[] = [
   },
 ];
 
-function RevealItem({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+function ExperienceItem({ exp, index }: { exp: Experience; index: number }) {
+  const ref = useRef<HTMLLIElement>(null);
   const [visible, setVisible] = useState(false);
+  const isEven = index % 2 === 1;
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(32px)",
-        transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function ExperienceItem({ experience, index }: { experience: Experience; index: number }) {
-  const isEven = index % 2 === 1;
-
   const imageBlock = (
-    <div className="flex-shrink-0">
-      <div className="relative w-full md:w-[480px] h-[280px] md:h-[360px] rounded-2xl overflow-hidden">
-        <Image
-          src={experience.img}
-          alt={experience.title}
-          width={480}
-          height={360}
-          className="w-full h-full object-cover"
-          style={{ transition: "transform 0.6s ease" }}
-        />
-      </div>
-    </div>
-  );
-
-  const divider = (
-    <div className="hidden md:flex flex-col items-center gap-3 self-stretch flex-shrink-0 px-2">
-      <div
-        className="rounded-full px-3 py-1 flex-shrink-0"
-        style={{ backgroundColor: "rgba(44,50,41,0.45)" }}
-      >
-        <span
-          className="text-sm font-medium"
-          style={{ color: "#dfe5d7", fontFamily: "Satoshi, sans-serif", letterSpacing: "0.05em" }}
-        >
-          {experience.num}
-        </span>
-      </div>
-      <div className="flex-1 w-px" style={{ backgroundColor: "rgba(13,18,11,0.15)" }} />
+    <div style={{ width: 476, flexShrink: 0, borderRadius: 16, overflow: "hidden", height: 319 }}>
+      <Image
+        src={exp.img}
+        alt={exp.title}
+        width={476}
+        height={319}
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
     </div>
   );
 
   const textBlock = (
-    <div className="flex-1 max-w-full md:max-w-[420px]">
-      <h3
-        className="leading-tight mb-4"
-        style={{
-          fontFamily: '"Instrument Serif", Georgia, serif',
-          fontStyle: "italic",
-          fontSize: "clamp(28px, 3.5vw, 40px)",
-          color: "#0d120b",
-        }}
-      >
-        {experience.title}
+    <div style={{
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      padding: "0 48px",
+    }}>
+      <h3 style={{
+        fontFamily: '"Instrument Serif", Georgia, serif',
+        fontStyle: "normal",
+        fontSize: 34,
+        color: "#0d120b",
+        lineHeight: 1.15,
+        marginBottom: 16,
+        marginTop: 0,
+      }}>
+        {exp.title}
       </h3>
-      <p
-        className="text-[16px] md:text-[18px] leading-relaxed"
-        style={{ color: "#2c3229", fontFamily: "Satoshi, sans-serif" }}
-      >
-        {experience.desc}
+      <p style={{
+        fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+        fontSize: 17,
+        color: "#2c3229",
+        lineHeight: 1.6,
+        margin: 0,
+      }}>
+        {exp.desc}
       </p>
     </div>
   );
 
-  return (
-    <RevealItem delay={0}>
-      <div className="mb-16 md:mb-24">
-        {/* Mobile: number + image + text */}
-        <div className="md:hidden mb-2">
-          <div
-            className="inline-flex rounded-full px-3 py-1 mb-4"
-            style={{ backgroundColor: "rgba(44,50,41,0.45)" }}
-          >
-            <span className="text-sm" style={{ color: "#dfe5d7", fontFamily: "Satoshi, sans-serif" }}>
-              {experience.num}
-            </span>
-          </div>
-          <div className="relative w-full h-[240px] rounded-2xl overflow-hidden mb-5">
-            <Image src={experience.img} alt={experience.title} fill className="object-cover" />
-          </div>
-          {textBlock}
-        </div>
+  const divider = (
+    <div style={{ width: 1, flexShrink: 0, background: "rgba(13,18,11,0.18)", alignSelf: "stretch" }} />
+  );
 
-        {/* Desktop: alternating layout */}
-        <div className="hidden md:flex flex-row gap-0 items-center">
-          {isEven ? (
-            <>{textBlock}{divider}{imageBlock}</>
-          ) : (
-            <>{imageBlock}{divider}{textBlock}</>
-          )}
+  return (
+    <li
+      ref={ref}
+      style={{
+        listStyle: "none",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(36px)",
+        transition: `opacity 0.7s ease ${index * 0.08}s, transform 0.7s ease ${index * 0.08}s`,
+      }}
+    >
+      {/* Number badge centered on the vertical line */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: 48,
+        width: "100%",
+        position: "relative",
+        zIndex: 1,
+      }}>
+        <div style={{
+          backgroundColor: "#5a6056",
+          color: "#dfe5d7",
+          borderRadius: 10,
+          padding: "6px 14px",
+          fontSize: 12,
+          fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+          letterSpacing: "0.05em",
+          lineHeight: 1,
+        }}>
+          {exp.num}
         </div>
       </div>
-    </RevealItem>
+
+      {/* Content row: image | 1px line | text */}
+      <div style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "stretch",
+        width: "100%",
+      }}>
+        {/* Mobile */}
+        <div className="md:hidden" style={{ width: "100%" }}>
+          <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 20, height: 240 }}>
+            <Image src={exp.img} alt={exp.title} width={476} height={240}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+          <h3 style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontStyle: "normal",
+            fontSize: 28, color: "#0d120b", lineHeight: 1.2, marginBottom: 10, marginTop: 0 }}>
+            {exp.title}
+          </h3>
+          <p style={{ fontFamily: "Satoshi, sans-serif", fontSize: 16, color: "#2c3229",
+            lineHeight: 1.6, margin: 0 }}>{exp.desc}</p>
+        </div>
+
+        {/* Desktop alternating */}
+        <div className="hidden md:flex" style={{ width: "100%", alignItems: "stretch" }}>
+          {isEven ? <>{textBlock}{divider}{imageBlock}</> : <>{imageBlock}{divider}{textBlock}</>}
+        </div>
+      </div>
+    </li>
   );
 }
 
 export function ExperiencesSection() {
   const headerRef = useRef<HTMLDivElement>(null);
-  const [headerVisible, setHeaderVisible] = useState(false);
+  const [headerVis, setHeaderVis] = useState(false);
 
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setHeaderVisible(true); obs.disconnect(); } },
+      ([entry]) => { if (entry.isIntersecting) { setHeaderVis(true); obs.disconnect(); } },
       { threshold: 0.2 }
     );
     obs.observe(el);
@@ -176,42 +188,68 @@ export function ExperiencesSection() {
   }, []);
 
   return (
-    <section className="w-full px-6 md:px-20 py-24" style={{ backgroundColor: "#dfe5d7" }}>
+    <section
+      style={{
+        backgroundColor: "#dfe5d7",
+        paddingTop: 80,
+        paddingBottom: 100,
+        borderRadius: "30px 30px 0 0",
+        marginTop: -30,
+        position: "relative",
+        zIndex: 2,
+      }}
+    >
       {/* Section header */}
       <div
         ref={headerRef}
-        className="text-center mb-20 max-w-3xl mx-auto"
         style={{
-          opacity: headerVisible ? 1 : 0,
-          transform: headerVisible ? "translateY(0)" : "translateY(24px)",
+          textAlign: "center",
+          marginBottom: 20,
+          padding: "0 24px",
+          opacity: headerVis ? 1 : 0,
+          transform: headerVis ? "translateY(0)" : "translateY(24px)",
           transition: "opacity 0.8s ease, transform 0.8s ease",
         }}
       >
-        <h2
-          className="leading-none mb-4"
-          style={{
-            fontFamily: '"Instrument Serif", Georgia, serif',
-            fontStyle: "italic",
-            fontSize: "clamp(40px, 6vw, 64px)",
-            color: "#0d120b",
-            letterSpacing: "-0.5px",
-          }}
-        >
+        <h2 style={{
+          fontFamily: '"Instrument Serif", Georgia, serif',
+          fontStyle: "italic",
+          fontSize: "clamp(40px, 5.5vw, 60px)",
+          color: "#0d120b",
+          lineHeight: 1.1,
+          letterSpacing: "-0.5px",
+          margin: "0 0 12px",
+        }}>
           What the 48 Hours Hold
         </h2>
-        <p
-          className="text-[16px] md:text-[18px]"
-          style={{ color: "#2c3229", fontFamily: "Satoshi, sans-serif" }}
-        >
+        <p style={{
+          fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+          fontSize: 18,
+          color: "#2c3229",
+          margin: 0,
+        }}>
           Every moment designed for depth, craft, and mastery.
         </p>
       </div>
 
-      {/* Experience items */}
-      <div className="max-w-5xl mx-auto">
-        {experiences.map((experience, index) => (
-          <ExperienceItem key={experience.num} experience={experience} index={index} />
-        ))}
+      {/* Timeline list with continuous center line */}
+      <div style={{ position: "relative", maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
+        {/* Continuous vertical line (desktop only) */}
+        <div className="hidden md:block" style={{
+          position: "absolute",
+          left: "50%",
+          top: 0,
+          bottom: 0,
+          width: 1,
+          backgroundColor: "rgba(13,18,11,0.15)",
+          transform: "translateX(-50%)",
+        }} />
+
+        <ul style={{ padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 32 }}>
+          {experiences.map((exp, i) => (
+            <ExperienceItem key={exp.num} exp={exp} index={i} />
+          ))}
+        </ul>
       </div>
     </section>
   );
