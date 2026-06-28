@@ -21,13 +21,13 @@ export default function MaestroSection() {
     <section
       ref={ref}
       className="px-6 py-24 md:px-20"
-      style={{ backgroundColor: "#dfe5d7" }}
+      style={{ backgroundColor: "#F5F5F5" }}
     >
       {/* Label */}
       <p
         className="text-center mb-2 tracking-widest uppercase"
         style={{
-          color: "#2c3229",
+          color: "#4A4A4A",
           fontSize: "12px",
           fontFamily: "Satoshi, sans-serif",
           letterSpacing: "0.15em",
@@ -45,7 +45,7 @@ export default function MaestroSection() {
           fontFamily: '"Instrument Serif", Georgia, serif',
           fontStyle: "italic",
           fontSize: "clamp(40px, 6vw, 64px)",
-          color: "#0d120b",
+          color: "#111111",
           lineHeight: 1.1,
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -60,7 +60,7 @@ export default function MaestroSection() {
         className="mx-auto"
         style={{
           maxWidth: "900px",
-          borderRadius: 16,
+          borderRadius: 10,
           overflow: "hidden",
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(30px)",
@@ -86,13 +86,13 @@ export default function MaestroSection() {
           transition: "opacity 0.8s ease 0.35s, transform 0.8s ease 0.35s",
         }}
       >
-        <p className="leading-relaxed" style={{ color: "#2c3229", fontSize: "18px", fontFamily: "Satoshi, sans-serif" }}>
+        <p className="leading-relaxed" style={{ color: "#4A4A4A", fontSize: "18px", fontFamily: "Satoshi, sans-serif" }}>
           For over 20 years, Giovanni has studied dough the way others study
           wine. His training was shaped by the old masters of Neapolitan pizza,
           then refined in the countryside of Tuscany, where slower rhythms
           allowed technique to evolve into instinct.
         </p>
-        <p className="leading-relaxed" style={{ color: "#2c3229", fontSize: "18px", fontFamily: "Satoshi, sans-serif" }}>
+        <p className="leading-relaxed" style={{ color: "#4A4A4A", fontSize: "18px", fontFamily: "Satoshi, sans-serif" }}>
           His work has fed Michelin-star kitchens, private estates, and chefs
           who came for mastery. Those who learn from him don&apos;t leave with
           recipes. They leave with judgment, confidence, and a deeper

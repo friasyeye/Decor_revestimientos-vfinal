@@ -1,196 +1,52 @@
 "use client";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-interface Experience {
-  num: string;
-  title: string;
-  img: string;
-  desc: string;
-}
-
-const experiences: Experience[] = [
+const services = [
   {
-    num: "001",
-    title: "The Science of Sourdough",
-    img: "/images/CTYQjTOJGK5FVvbAkfOYUFmkVNQ.jpg",
-    desc: "Master fermentation, hydration, and heat through guided dough work and live-fire baking. Learn why dough behaves the way it does, not just how to follow a recipe.",
+    title: "Baños y zonas húmedas",
+    badges: ["Microcemento en baños", "Platos de ducha", "Estanqueidad garantizada"],
+    summary: "Transformamos baños en espacios continuos sin juntas. Platos de ducha integrados, lavabos de obra y paredes impermeables con garantía de estanqueidad.",
+    detail: "Un baño con microcemento o Mortex no tiene juntas que limpiar, no acumula hongos en las grietas y es completamente impermeable. Aplicamos sobre azulejos existentes sin necesidad de obra, en 1-2 días. Acabado mate o satinado, con textura antideslizante si lo requieres.",
   },
   {
-    num: "002",
-    title: "The Tuscan Market Immersion",
-    img: "/images/uy1XcmmT2qiaTBk18eoukQqlPk.jpg",
-    desc: "Walk the local markets with a chef's eye. Source flour, tomatoes, and basil directly from the people who grow and make them.",
+    title: "Suelos interiores y exteriores",
+    badges: ["Suelo continuo sin juntas", "Salones y terrazas", "Durabilidad premium"],
+    summary: "Pavimentos continuos para salones, pasillos, terrazas y patios. Sin juntas, sin grietas, amplitud visual garantizada.",
+    detail: "El suelo de microcemento se aplica sobre cerámica, hormigón o madera preparada. Crea una sensación de amplitud porque no hay cortes visuales. Para exteriores aplicamos con textura rugosa antideslizante y resistencia UV. Perfecta durabilidad en Barcelona.",
   },
   {
-    num: "003",
-    title: "Private Wood-Fired Sessions",
-    img: "/images/imeUcyMMbKYRMNhUDuVvx4Ns6mg.jpg",
-    desc: "Hands-on oven time with direct, personal feedback. No demonstrations. No spectators. We make sure every participant works the fire.",
+    title: "Piscinas y zonas sumergidas",
+    badges: ["Mortex para piscinas", "Sin gresite", "Estanqueidad absoluta"],
+    summary: "Revestimiento del vaso de piscina y jacuzzi con Mortex. Estanqueidad absoluta, resistente a cloro y químicos del agua.",
+    detail: "Es la aplicación técnicamente más exigente de nuestro catálogo. Mortex es impermeable por naturaleza y absorbe micro-tensiones del soporte, evitando filtraciones. No necesita gresite ni juntas de dilatación. Certificación de aplicador obligatoria — nosotros la tenemos.",
   },
   {
-    num: "004",
-    title: "Sunset Estate Dinner",
-    img: "/images/WRCbmp2tgPvD2rZF622bBKVrbt0.jpg",
-    desc: "An intimate dinner featuring your own creations, shared at a private Tuscan estate with all the participants as the sun goes down.",
+    title: "Escaleras",
+    badges: ["Escaleras de diseño", "Pieza única sin juntas", "Alta durabilidad"],
+    summary: "Transformamos escaleras en obra de diseño de una sola pieza. Eliminan cortes y juntas, con dureza mecánica para alto tránsito.",
+    detail: "Una escalera revestida en microcemento o Mortex es fácil de mantener, cómoda de subir y estéticamente limpia. Mortex aporta la dureza necesaria para escaleras de mucho uso. Aplicamos sobre madera, hormigón o metal.",
   },
   {
-    num: "005",
-    title: "From Technique to Instinct",
-    img: "/images/xkarbZrnCBVYbD2kRRdam9aKt0.jpg",
-    desc: "Move beyond measurements and timers. Learn to read dough, feel fermentation, and work with confidence under real conditions.",
+    title: "Encimeras, mobiliario y proyectos especiales",
+    badges: ["Encimeras de cocina", "Mobiliario de autor", "Acabado mineral"],
+    summary: "Aplicación sobre muebles, encimeras y proyectos de diseño. Tacto mineral que recuerda a la piedra natural.",
+    detail: "Para interioristas y arquitectos que diseñan espacios singulares. Aplicamos sobre MDF, madera, acero y superficies no convencionales. Acabado personalizado según proyecto. Garantía total de adhesión.",
   },
 ];
 
-function ExperienceItem({ exp, index }: { exp: Experience; index: number }) {
-  const ref = useRef<HTMLLIElement>(null);
-  const [visible, setVisible] = useState(false);
-  const isEven = index % 2 === 1;
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const imageBlock = (
-    <div style={{ width: 476, flexShrink: 0, borderRadius: 16, overflow: "hidden", height: 319 }}>
-      <Image
-        src={exp.img}
-        alt={exp.title}
-        width={476}
-        height={319}
-        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-      />
-    </div>
-  );
-
-  const textBlock = (
-    <div style={{
-      flex: 1,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      padding: "0 48px",
-    }}>
-      <h3 style={{
-        fontFamily: '"Instrument Serif", Georgia, serif',
-        fontStyle: "normal",
-        fontSize: 34,
-        color: "#0d120b",
-        lineHeight: 1.15,
-        marginBottom: 16,
-        marginTop: 0,
-      }}>
-        {exp.title}
-      </h3>
-      <p style={{
-        fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-        fontSize: 17,
-        color: "#2c3229",
-        lineHeight: 1.6,
-        margin: 0,
-      }}>
-        {exp.desc}
-      </p>
-    </div>
-  );
-
-  const divider = (
-    <div style={{ width: 1, flexShrink: 0, background: "rgba(13,18,11,0.18)", alignSelf: "stretch" }} />
-  );
-
-  return (
-    <li
-      ref={ref}
-      style={{
-        listStyle: "none",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(36px)",
-        transition: `opacity 0.7s ease ${index * 0.08}s, transform 0.7s ease ${index * 0.08}s`,
-      }}
-    >
-      {/* Number badge centered on the vertical line */}
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: 48,
-        width: "100%",
-        position: "relative",
-        zIndex: 1,
-      }}>
-        <div style={{
-          backgroundColor: "#5a6056",
-          color: "#dfe5d7",
-          borderRadius: 10,
-          padding: "6px 14px",
-          fontSize: 12,
-          fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-          letterSpacing: "0.05em",
-          lineHeight: 1,
-        }}>
-          {exp.num}
-        </div>
-      </div>
-
-      {/* Content row: image | 1px line | text */}
-      <div style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "stretch",
-        width: "100%",
-      }}>
-        {/* Mobile */}
-        <div className="md:hidden" style={{ width: "100%" }}>
-          <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 20, height: 240 }}>
-            <Image src={exp.img} alt={exp.title} width={476} height={240}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          </div>
-          <h3 style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontStyle: "normal",
-            fontSize: 28, color: "#0d120b", lineHeight: 1.2, marginBottom: 10, marginTop: 0 }}>
-            {exp.title}
-          </h3>
-          <p style={{ fontFamily: "Satoshi, sans-serif", fontSize: 16, color: "#2c3229",
-            lineHeight: 1.6, margin: 0 }}>{exp.desc}</p>
-        </div>
-
-        {/* Desktop alternating */}
-        <div className="hidden md:flex" style={{ width: "100%", alignItems: "stretch" }}>
-          {isEven ? <>{textBlock}{divider}{imageBlock}</> : <>{imageBlock}{divider}{textBlock}</>}
-        </div>
-      </div>
-    </li>
-  );
-}
+const badgeColors = [
+  { bg: "rgba(17,17,17,0.07)", text: "#3A3A3A", border: "rgba(17,17,17,0.15)" },
+  { bg: "rgba(107,107,107,0.12)", text: "#6B6B6B", border: "rgba(107,107,107,0.2)" },
+  { bg: "rgba(17,17,17,0.04)", text: "#6B6B6B", border: "rgba(17,17,17,0.1)" },
+];
 
 export function ExperiencesSection() {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [headerVis, setHeaderVis] = useState(false);
-
-  useEffect(() => {
-    const el = headerRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setHeaderVis(true); obs.disconnect(); } },
-      { threshold: 0.2 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section
       style={{
-        backgroundColor: "#dfe5d7",
+        backgroundColor: "#F5F5F5",
         paddingTop: 80,
         paddingBottom: 100,
         borderRadius: "30px 30px 0 0",
@@ -199,57 +55,160 @@ export function ExperiencesSection() {
         zIndex: 2,
       }}
     >
-      {/* Section header */}
-      <div
-        ref={headerRef}
-        style={{
-          textAlign: "center",
-          marginBottom: 20,
-          padding: "0 24px",
-          opacity: headerVis ? 1 : 0,
-          transform: headerVis ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 0.8s ease, transform 0.8s ease",
-        }}
-      >
-        <h2 style={{
-          fontFamily: '"Instrument Serif", Georgia, serif',
-          fontStyle: "italic",
-          fontSize: "clamp(40px, 5.5vw, 60px)",
-          color: "#0d120b",
-          lineHeight: 1.1,
-          letterSpacing: "-0.5px",
-          margin: "0 0 12px",
-        }}>
-          What the 48 Hours Hold
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 48px" }}>
+
+        {/* Header */}
+        <h2
+          style={{
+            fontFamily: "Instrument Serif, Georgia, serif",
+            fontStyle: "italic",
+            fontSize: "clamp(36px, 5vw, 60px)",
+            color: "#111111",
+            lineHeight: 1.1,
+            letterSpacing: "-0.5px",
+            marginBottom: "0.6rem",
+          }}
+        >
+          Qué hacemos
         </h2>
-        <p style={{
-          fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-          fontSize: 18,
-          color: "#2c3229",
-          margin: 0,
-        }}>
-          Every moment designed for depth, craft, and mastery.
+        <p
+          style={{
+            fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+            fontSize: "clamp(14px, 1.4vw, 17px)",
+            color: "#6B6B6B",
+            marginBottom: "3.5rem",
+          }}
+        >
+          Servicios de revestimiento continuo en Barcelona. Cada proyecto es diferente.
         </p>
-      </div>
 
-      {/* Timeline list with continuous center line */}
-      <div style={{ position: "relative", maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
-        {/* Continuous vertical line (desktop only) */}
-        <div className="hidden md:block" style={{
-          position: "absolute",
-          left: "50%",
-          top: 0,
-          bottom: 0,
-          width: 1,
-          backgroundColor: "rgba(13,18,11,0.15)",
-          transform: "translateX(-50%)",
-        }} />
+        {/* Accordion */}
+        <div>
+          {services.map((s, i) => {
+            const isOpen = open === i;
+            return (
+              <div
+                key={i}
+                style={{
+                  borderTop: "1px solid rgba(17,17,17,0.12)",
+                  ...(i === services.length - 1 ? { borderBottom: "1px solid rgba(17,17,17,0.12)" } : {}),
+                }}
+              >
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  style={{
+                    width: "100%",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "32px 0",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 16,
+                    textAlign: "left",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flex: 1, gap: 24 }}>
+                    <h3
+                      style={{
+                        fontFamily: "Instrument Serif, Georgia, serif",
+                        fontStyle: "italic",
+                        fontSize: "clamp(22px, 2.4vw, 32px)",
+                        color: isOpen ? "#111111" : "#4A4A4A",
+                        margin: 0,
+                        transition: "color 0.3s ease",
+                        lineHeight: 1.2,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {s.title}
+                    </h3>
 
-        <ul style={{ padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 32 }}>
-          {experiences.map((exp, i) => (
-            <ExperienceItem key={exp.num} exp={exp} index={i} />
-          ))}
-        </ul>
+                    {/* Badges a la derecha */}
+                    <div className="hidden md:flex" style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "flex-end" }}>
+                      {s.badges.map((b, bi) => {
+                        const c = badgeColors[bi % badgeColors.length];
+                        return (
+                          <span
+                            key={bi}
+                            style={{
+                              fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+                              fontSize: "clamp(10px, 0.9vw, 12px)",
+                              fontWeight: 500,
+                              letterSpacing: "0.03em",
+                              padding: "4px 11px",
+                              borderRadius: 999,
+                              backgroundColor: c.bg,
+                              color: c.text,
+                            }}
+                          >
+                            {b}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      width: 28,
+                      height: 28,
+                      borderRadius: "50%",
+                      border: "1px solid rgba(17,17,17,0.2)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#6B6B6B",
+                      fontSize: 18,
+                      lineHeight: 1,
+                      transition: "transform 0.35s ease",
+                      transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                    }}
+                  >
+                    +
+                  </span>
+                </button>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateRows: isOpen ? "1fr" : "0fr",
+                    transition: "grid-template-rows 0.4s cubic-bezier(0.16,1,0.3,1)",
+                  }}
+                >
+                  <div style={{ overflow: "hidden" }}>
+                    <div style={{ paddingBottom: "36px" }}>
+                      <p
+                        style={{
+                          fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+                          fontSize: "clamp(15px, 1.5vw, 17px)",
+                          color: "#3A3A3A",
+                          lineHeight: 1.7,
+                          marginBottom: "0.9rem",
+                        }}
+                      >
+                        {s.summary}
+                      </p>
+
+                      <p
+                        style={{
+                          fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+                          fontSize: "clamp(13px, 1.3vw, 15px)",
+                          color: "#6B6B6B",
+                          lineHeight: 1.75,
+                        }}
+                      >
+                        {s.detail}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

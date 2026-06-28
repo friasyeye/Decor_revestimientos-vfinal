@@ -46,9 +46,9 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
   return (
     <div
       ref={ref}
-      className="rounded-2xl p-10 flex flex-col gap-6"
+      className="rounded-[10px] p-10 flex flex-col gap-6"
       style={{
-        backgroundColor: "#c2c8bc",
+        backgroundColor: "#D4D4D4",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(32px)",
         transition: `opacity 0.7s ease ${index * 0.08}s, transform 0.7s ease ${index * 0.08}s`,
@@ -59,7 +59,7 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
         style={{
           fontFamily: '"Instrument Serif", Georgia, serif',
           fontStyle: "italic",
-          color: "#0d120b",
+          color: "#111111",
         }}
       >
         &ldquo;{t.quote}&rdquo;
@@ -69,7 +69,7 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
           className="text-[16px] font-medium"
           style={{
             fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-            color: "#0d120b",
+            color: "#111111",
           }}
         >
           {t.name}
@@ -78,7 +78,7 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
           className="text-[14px]"
           style={{
             fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-            color: "#2c3229",
+            color: "#4A4A4A",
           }}
         >
           {t.role}
@@ -104,7 +104,7 @@ export function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#dfe5d7" }}>
+    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#F5F5F5" }}>
       {/* Header */}
       <div
         ref={headerRef}
@@ -121,7 +121,7 @@ export function TestimonialsSection() {
             fontFamily: '"Instrument Serif", Georgia, serif',
             fontStyle: "italic",
             fontSize: "clamp(36px, 5vw, 56px)",
-            color: "#0d120b",
+            color: "#111111",
             letterSpacing: "-0.3px",
           }}
         >
@@ -130,7 +130,7 @@ export function TestimonialsSection() {
         <p
           className="text-[18px]"
           style={{
-            color: "#2c3229",
+            color: "#4A4A4A",
             fontFamily: "Satoshi, ui-sans-serif, sans-serif",
           }}
         >

@@ -24,7 +24,7 @@ export function LocationSection() {
   }, []);
 
   return (
-    <section style={{ backgroundColor: "#dfe5d7", paddingTop: 24 }}>
+    <section style={{ backgroundColor: "#F5F5F5", paddingTop: 24 }}>
       {/* Photos row */}
       <div
         ref={photoRef}
@@ -35,7 +35,7 @@ export function LocationSection() {
           transition: "opacity 0.8s ease, transform 0.8s ease",
         }}
       >
-        <div className="overflow-hidden rounded-2xl">
+        <div className="overflow-hidden rounded-[10px]">
           <Image
             src="/images/3iC1MXJJcUe9OZi5KP7RvyfbzXE.jpg"
             alt="Tuscan estate aerial view"
@@ -44,7 +44,7 @@ export function LocationSection() {
             className="h-[400px] w-full object-cover"
           />
         </div>
-        <div className="overflow-hidden rounded-2xl">
+        <div className="overflow-hidden rounded-[10px]">
           <Image
             src="/images/qi31jTCjPGBFLq2Bsxyr7jMEt3U.jpg"
             alt="Tuscan countryside aerial view"
@@ -70,7 +70,7 @@ export function LocationSection() {
           style={{
             fontFamily: "'Instrument Serif', Georgia, serif",
             fontSize: "clamp(36px, 5vw, 56px)",
-            color: "#0d120b",
+            color: "#111111",
             letterSpacing: "-0.3px",
           }}
         >
@@ -82,7 +82,7 @@ export function LocationSection() {
           style={{
             fontFamily: "'Satoshi', sans-serif",
             fontSize: "18px",
-            color: "#2c3229",
+            color: "#4A4A4A",
           }}
         >
           Where tradition, land, and craft intersect.
@@ -93,7 +93,7 @@ export function LocationSection() {
           style={{
             fontFamily: "'Satoshi', sans-serif",
             fontSize: "18px",
-            color: "#2c3229",
+            color: "#4A4A4A",
           }}
         >
           The masterclass takes place in a private Tuscan estate.
@@ -104,7 +104,7 @@ export function LocationSection() {
           style={{
             fontFamily: "'Satoshi', sans-serif",
             fontSize: "18px",
-            color: "#2c3229",
+            color: "#4A4A4A",
           }}
         >
           This location is surrounded by olive groves and vineyards, far from

@@ -17,20 +17,20 @@ const columnHeaderStyle: React.CSSProperties = {
   fontSize: 14,
   fontWeight: 500,
   letterSpacing: "0.05em",
-  color: "#dfe5d7",
+  color: "#F5F5F5",
   marginBottom: 16,
   display: "block",
 };
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: "#5a6056" }}>
+    <footer style={{ backgroundColor: "#3A3A3A" }}>
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10 px-6 md:px-20 py-16">
         {/* Left column: brand */}
         <div>
           {/* Logo row */}
           <div className="flex items-center gap-2 mb-3">
-            <span className="shrink-0 w-4 h-4" style={{ color: "#dfe5d7" }}>
+            <span className="shrink-0 w-4 h-4" style={{ color: "#F5F5F5" }}>
               <StarSparkleIcon className="w-full h-full" />
             </span>
             <span
@@ -38,7 +38,7 @@ export function Footer() {
                 fontFamily: '"Abhaya Libre", Georgia, serif',
                 fontSize: 20,
                 letterSpacing: "-0.4px",
-                color: "#dfe5d7",
+                color: "#F5F5F5",
               }}
             >
               MaestroClass

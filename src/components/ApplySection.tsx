@@ -7,7 +7,7 @@ const labelStyle: React.CSSProperties = {
   display: "block",
   fontFamily: "Satoshi, ui-sans-serif, sans-serif",
   fontSize: 14,
-  color: "#2c3229",
+  color: "#4A4A4A",
   marginBottom: 8,
 };
 
@@ -19,7 +19,7 @@ const inputStyle: React.CSSProperties = {
   background: "transparent",
   fontFamily: "Satoshi, ui-sans-serif, sans-serif",
   fontSize: 16,
-  color: "#0d120b",
+  color: "#111111",
   outline: "none",
   marginBottom: 20,
   boxSizing: "border-box",
@@ -27,7 +27,7 @@ const inputStyle: React.CSSProperties = {
 
 export function ApplySection() {
   return (
-    <section style={{ backgroundColor: "#dfe5d7" }}>
+    <section style={{ backgroundColor: "#F5F5F5" }}>
       {/* Centered header */}
       <div className="text-center pb-12 px-6 pt-20">
         <h2
@@ -35,7 +35,7 @@ export function ApplySection() {
           style={{
             fontFamily: '"Instrument Serif", Georgia, serif',
             fontStyle: "italic",
-            color: "#0d120b",
+            color: "#111111",
           }}
         >
           Apply for A Seat
@@ -44,7 +44,7 @@ export function ApplySection() {
           className="text-[18px] leading-relaxed max-w-xl mx-auto"
           style={{
             fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-            color: "#2c3229",
+            color: "#4A4A4A",
           }}
         >
           Participation is limited and intentionally curated. We review every application to ensure
@@ -62,8 +62,8 @@ export function ApplySection() {
             alt="People shaping dough during the masterclass"
             width={600}
             height={700}
-            className="rounded-2xl w-full object-cover"
-            style={{ height: 500 }}
+            className="w-full object-cover"
+            style={{ height: 500, borderRadius: 10 }}
           />
         </div>
 
@@ -76,7 +76,7 @@ export function ApplySection() {
             placeholder=""
             style={inputStyle}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = "#0d120b";
+              e.currentTarget.style.borderColor = "#111111";
             }}
             onBlur={(e) => {
               e.currentTarget.style.borderColor = "rgba(13,18,11,0.25)";
@@ -90,7 +90,7 @@ export function ApplySection() {
             placeholder=""
             style={inputStyle}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = "#0d120b";
+              e.currentTarget.style.borderColor = "#111111";
             }}
             onBlur={(e) => {
               e.currentTarget.style.borderColor = "rgba(13,18,11,0.25)";
@@ -104,7 +104,7 @@ export function ApplySection() {
             placeholder=""
             style={inputStyle}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = "#0d120b";
+              e.currentTarget.style.borderColor = "#111111";
             }}
             onBlur={(e) => {
               e.currentTarget.style.borderColor = "rgba(13,18,11,0.25)";
@@ -123,14 +123,14 @@ export function ApplySection() {
                 style={{
                   fontFamily: "Satoshi, ui-sans-serif, sans-serif",
                   fontSize: 16,
-                  color: "#0d120b",
+                  color: "#111111",
                 }}
               >
                 <input
                   type="radio"
                   name="skillLevel"
                   value={level}
-                  className="accent-[#0d120b]"
+                  className="accent-[#111111]"
                 />
                 {level}
               </label>
@@ -142,7 +142,7 @@ export function ApplySection() {
           <textarea
             style={{ ...inputStyle, height: 128, resize: "vertical", marginBottom: 24 }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = "#0d120b";
+              e.currentTarget.style.borderColor = "#111111";
             }}
             onBlur={(e) => {
               e.currentTarget.style.borderColor = "rgba(13,18,11,0.25)";
@@ -154,9 +154,9 @@ export function ApplySection() {
             type="submit"
             className="w-full"
             style={{
-              backgroundColor: "#171d15",
-              color: "#dfe5d7",
-              borderRadius: 16,
+              backgroundColor: "#111111",
+              color: "#F5F5F5",
+              borderRadius: 6,
               padding: "16px 0",
               fontFamily: "Satoshi, ui-sans-serif, sans-serif",
               fontSize: 18,

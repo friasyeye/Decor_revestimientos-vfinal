@@ -57,7 +57,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#dfe5d7" }}>
+    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#F5F5F5" }}>
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-20 items-start">
         {/* Left sidebar */}
         <div
@@ -72,11 +72,11 @@ export function FAQSection() {
             className="text-[18px] mb-6 leading-relaxed"
             style={{
               fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-              color: "#2c3229",
+              color: "#4A4A4A",
             }}
           >
             Couldn&apos;t find your question?{" "}
-            <span className="font-medium" style={{ color: "#0d120b" }}>
+            <span className="font-medium" style={{ color: "#111111" }}>
               Get in touch with us!
             </span>
           </p>
@@ -87,8 +87,8 @@ export function FAQSection() {
               style={{
                 width: 48,
                 height: 48,
-                backgroundColor: "#2c3229",
-                color: "#dfe5d7",
+                backgroundColor: "#4A4A4A",
+                color: "#F5F5F5",
               }}
               aria-label="Instagram"
             >
@@ -100,8 +100,8 @@ export function FAQSection() {
               style={{
                 width: 48,
                 height: 48,
-                backgroundColor: "#2c3229",
-                color: "#dfe5d7",
+                backgroundColor: "#4A4A4A",
+                color: "#F5F5F5",
               }}
               aria-label="Phone"
             >
@@ -113,8 +113,8 @@ export function FAQSection() {
               style={{
                 width: 48,
                 height: 48,
-                backgroundColor: "#2c3229",
-                color: "#dfe5d7",
+                backgroundColor: "#4A4A4A",
+                color: "#F5F5F5",
               }}
               aria-label="Email"
             >
@@ -144,7 +144,7 @@ export function FAQSection() {
                   className="text-[18px] pr-4"
                   style={{
                     fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-                    color: "#0d120b",
+                    color: "#111111",
                   }}
                 >
                   {item.q}
@@ -154,8 +154,8 @@ export function FAQSection() {
                   style={{
                     width: 32,
                     height: 32,
-                    backgroundColor: "#0d120b",
-                    color: "#dfe5d7",
+                    backgroundColor: "#111111",
+                    color: "#F5F5F5",
                     fontSize: 20,
                     lineHeight: 1,
                     transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)",
@@ -169,7 +169,7 @@ export function FAQSection() {
                   className="text-[16px] leading-relaxed pt-3 pb-1"
                   style={{
                     fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-                    color: "#2c3229",
+                    color: "#4A4A4A",
                     animation: "fadeIn 0.3s ease",
                   }}
                 >

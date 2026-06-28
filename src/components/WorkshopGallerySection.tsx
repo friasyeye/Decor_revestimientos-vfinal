@@ -36,7 +36,7 @@ function GalleryImage({ image, index }: { image: (typeof galleryImages)[number];
   return (
     <div
       ref={ref}
-      className={`relative overflow-hidden rounded-xl ${aspectClass}`}
+      className={`relative overflow-hidden rounded-[10px] ${aspectClass}`}
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(28px)",
@@ -70,7 +70,7 @@ export default function WorkshopGallerySection() {
   }, []);
 
   return (
-    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#dfe5d7" }}>
+    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#F5F5F5" }}>
       {/* Header */}
       <div
         ref={headerRef}
@@ -86,7 +86,7 @@ export default function WorkshopGallerySection() {
             fontFamily: '"Instrument Serif", Georgia, serif',
             fontStyle: "italic",
             fontSize: "clamp(36px, 5vw, 56px)",
-            color: "#0d120b",
+            color: "#111111",
             letterSpacing: "-0.3px",
             lineHeight: 1.1,
           }}
@@ -97,7 +97,7 @@ export default function WorkshopGallerySection() {
         <p
           className="text-center mb-14"
           style={{
-            color: "#2c3229",
+            color: "#4A4A4A",
             fontSize: "18px",
             fontFamily: "Satoshi, sans-serif",
           }}
