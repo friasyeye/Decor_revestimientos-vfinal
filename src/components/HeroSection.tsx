@@ -1,22 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export function HeroSection() {
-  const [loaded, setLoaded] = useState(false);
-  const [hovered, setHovered] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 80);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
     <>
       <style>{`
         .hero-section {
           min-height: 100vh;
-          position: sticky;
-          top: 0;
+          position: relative;
           z-index: 1;
           overflow: hidden;
           display: flex;
@@ -28,16 +18,28 @@ export function HeroSection() {
           position: relative;
           z-index: 10;
           width: 100%;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 80px 6vw;
+          padding: 80px max(24px, 4vw);
           box-sizing: border-box;
+          display: flex;
+          justify-content: flex-start;
         }
         .hero-content-inner {
           max-width: 700px;
           width: 100%;
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
         }
-        .hero-subtitle {
+        .hero-eyebrow {
+          font-family: Satoshi, ui-sans-serif, system-ui, sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.18em;
+          color: rgba(245,245,245,0.5);
+          margin: 0 0 20px 0;
+        }
+        .hero-claim {
           font-family: var(--font-instrument-serif), Georgia, serif;
           font-style: italic;
           font-size: clamp(28px, 4.2vw, 54px);
@@ -45,6 +47,43 @@ export function HeroSection() {
           line-height: 1.12;
           letter-spacing: -0.3px;
           margin-bottom: 40px;
+        }
+        .hero-buttons {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+        .hero-cta {
+          background-color: #D4D4D4;
+          color: #111111;
+          border: 1.5px solid #D4D4D4;
+          border-radius: 6px;
+          padding: 15px 32px;
+          font-size: 16px;
+          font-family: Satoshi, ui-sans-serif, system-ui, sans-serif;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          line-height: 1;
+          transform: translateY(0);
+          transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
+          cursor: pointer;
+        }
+        .hero-cta:hover {
+          background-color: transparent;
+          color: #D4D4D4;
+          transform: translateY(-2px);
+        }
+        .hero-note {
+          font-family: Satoshi, ui-sans-serif, system-ui, sans-serif;
+          font-size: 12px;
+          color: rgba(245,245,245,0.65);
+          margin-top: 12px;
         }
         @media (max-width: 768px) {
           .hero-section {
@@ -57,28 +96,44 @@ export function HeroSection() {
           .hero-content-inner {
             max-width: 100%;
           }
-          .hero-subtitle {
+          .hero-eyebrow {
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            margin-bottom: 16px;
+          }
+          .hero-claim {
             font-size: clamp(24px, 7vw, 36px);
             margin-bottom: 28px;
+          }
+          .hero-buttons {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+          }
+          .hero-buttons a {
+            width: auto;
+            justify-content: center;
+            padding: 12px 24px !important;
+            font-size: 14px !important;
           }
         }
       `}</style>
 
       <section className="hero-section">
-        {/* Background image */}
-        <div
+        <Image
+          src="/images/hero.webp"
+          alt=""
           aria-hidden="true"
+          fill
+          priority
+          sizes="100vw"
           style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: "url('/images/hero (2).png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            objectFit: "cover",
+            objectPosition: "center",
             zIndex: 0,
           }}
         />
-
-        {/* Overlay oscuro */}
         <div
           aria-hidden="true"
           style={{
@@ -91,76 +146,34 @@ export function HeroSection() {
 
         <div className="hero-content-outer">
           <div className="hero-content-inner">
-            <h1
-              style={{
-                fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
-                fontSize: "clamp(12px, 1.1vw, 15px)",
-                fontStyle: "normal",
-                fontWeight: 500,
-                color: "#F5F5F5",
-                lineHeight: 1.3,
-                letterSpacing: "0.03em",
-                marginBottom: "16px",
-                filter: loaded ? "blur(0px)" : "blur(8px)",
-                opacity: loaded ? 0.85 : 0,
-                transform: loaded ? "translateY(0)" : "translateY(12px)",
-                transition: "filter 0.9s ease, opacity 0.7s ease, transform 0.7s ease",
-              }}
-            >
+
+            {/* H1 SEO — eyebrow discreto */}
+            <h1 className="hero-eyebrow">
               Empresa de microcemento en Barcelona
             </h1>
 
-            <p
-              className="hero-subtitle"
-              style={{
-                opacity: loaded ? 1 : 0,
-                transform: loaded ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
-              }}
-            >
-              Aplicamos revestimientos continuos en cualquier superficie de tu hogar, sin obras ni escombros
+            {/* Claim principal */}
+            <p className="hero-claim">
+              Aplicamos revestimientos continuos en cualquier superficie de tu hogar
             </p>
 
-            <a
-              href="#contacto"
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
+            <div
               style={{
-                backgroundColor: hovered ? "transparent" : "#D4D4D4",
-                color: hovered ? "#D4D4D4" : "#111111",
-                border: "1.5px solid #D4D4D4",
-                borderRadius: "6px",
-                padding: "15px 32px",
-                fontSize: "16px",
-                fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
-                fontWeight: 500,
-                letterSpacing: "0.02em",
-                textDecoration: "none",
                 display: "inline-flex",
-                alignItems: "center",
-                lineHeight: 1,
-                opacity: loaded ? 1 : 0,
-                transform: loaded ? (hovered ? "translateY(-2px)" : "translateY(0)") : "translateY(12px)",
-                transition:
-                  "background-color 0.22s ease, color 0.22s ease, transform 0.22s ease, opacity 0.7s ease 0.35s",
-                cursor: "pointer",
+                flexDirection: "column",
+                alignItems: "flex-start",
               }}
             >
-              Solicita tu visita gratuita
-            </a>
+              <div className="hero-buttons">
+                <a href="/contacto" className="hero-cta">
+                  Solicita tu visita gratuita
+                </a>
+              </div>
 
-            <p
-              style={{
-                fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
-                fontSize: "12px",
-                color: "rgba(245,245,245,0.65)",
-                marginTop: "12px",
-                opacity: loaded ? 1 : 0,
-                transition: "opacity 0.7s ease 0.5s",
-              }}
-            >
-              * Te respondemos por WhatsApp en menos de 24 horas
-            </p>
+              <p className="hero-note">
+                * Te respondemos por WhatsApp en menos de 24 horas
+              </p>
+            </div>
           </div>
         </div>
       </section>

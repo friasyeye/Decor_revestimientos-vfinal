@@ -5,28 +5,24 @@ import { InstagramIcon, PhoneIcon, MailIcon } from "./icons";
 
 const faqs = [
   {
-    q: "Who is this for?",
-    a: "This masterclass is designed for serious practitioners — artisan bakers, chefs, food entrepreneurs, and passionate home bakers who want to deepen their technical understanding and craft.",
+    q: "¿Se puede aplicar microcemento encima de los azulejos sin quitar nada?",
+    a: "Sí. Aplicamos directamente sobre rachola, azulejo antiguo, gresite, mármol y cristal sin necesidad de picar ni generar escombros. Antes de cualquier proyecto hacemos una visita técnica para analizar el soporte y confirmar que todo está en condiciones.",
   },
   {
-    q: "How many people attend each edition?",
-    a: "Each edition is limited to twelve participants to ensure intimate, focused instruction and direct access to the maestro throughout the experience.",
+    q: "¿El microcemento se agrieta con el tiempo?",
+    a: "Aplicado correctamente y sobre un soporte bien preparado, no. Por eso hacemos siempre un diagnóstico técnico previo — analizamos la estabilidad, la humedad y la porosidad antes de empezar. Ahí está la diferencia entre un acabado que dura y uno que falla.",
   },
   {
-    q: "Is accommodation included?",
-    a: "Yes. Two nights in a private countryside estate are included in the experience. You'll share the space only with fellow participants.",
+    q: "¿Se puede poner microcemento en la ducha o en zonas con agua?",
+    a: "Sí, con el sellado adecuado el microcemento es impermeable. Para zonas de alto riesgo de filtración recomendamos Mortex, que es impermeable por naturaleza y no necesita juntas de dilatación.",
   },
   {
-    q: "What language is the workshop conducted in?",
-    a: "The workshop is conducted in English, with Italian integrated throughout the culinary sessions and estate experience.",
+    q: "¿Qué diferencia hay entre microcemento y Mortex?",
+    a: "El microcemento es un revestimiento continuo versátil, ideal para baños, suelos y paredes. Mortex es un micro-mortero técnico belga de mayor densidad y dureza, más indicado para zonas húmedas, piscinas y proyectos complejos. Somos aplicadores certificados en ambos.",
   },
   {
-    q: "How does the application process work?",
-    a: "Submit your application with a brief introduction. We review each one personally and respond within 5 business days with next steps.",
-  },
-  {
-    q: "Can I attend with a partner or team member?",
-    a: "Yes, partners and team members are welcome to apply together. Each applicant is reviewed individually to ensure the right group dynamic.",
+    q: "¿Dais presupuesto sin visitar la superficie?",
+    a: "No. Nunca damos precio sin ver el soporte en persona. La visita técnica previa es parte de nuestro proceso — sin ella no podemos garantizar el resultado.",
   },
 ];
 
@@ -57,8 +53,9 @@ export function FAQSection() {
   };
 
   return (
-    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#F5F5F5" }}>
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-20 items-start">
+    <section className="py-24" style={{ backgroundColor: "#F5F5F5" }}>
+      <div className="dc-container">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-10 md:gap-20 items-start">
         {/* Left sidebar */}
         <div
           ref={sidebarRef}
@@ -68,16 +65,28 @@ export function FAQSection() {
             transition: "opacity 0.8s ease, transform 0.8s ease",
           }}
         >
+          <h2
+            className="text-[36px] md:text-[48px] leading-tight mb-4"
+            style={{ fontFamily: "Instrument Serif, Georgia, serif", color: "#111111" }}
+          >
+            Preguntas frecuentes
+          </h2>
+          <p
+            className="text-[18px] mb-10"
+            style={{ fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif", color: "#4A4A4A" }}
+          >
+            Todo lo que necesitas saber antes de empezar.
+          </p>
           <p
             className="text-[18px] mb-6 leading-relaxed"
             style={{
-              fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+              fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
               color: "#4A4A4A",
             }}
           >
-            Couldn&apos;t find your question?{" "}
+            ¿Tienes más preguntas?{" "}
             <span className="font-medium" style={{ color: "#111111" }}>
-              Get in touch with us!
+              Escríbenos o llámanos.
             </span>
           </p>
           <div className="flex gap-3">
@@ -143,7 +152,7 @@ export function FAQSection() {
                 <p
                   className="text-[18px] pr-4"
                   style={{
-                    fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+                    fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
                     color: "#111111",
                   }}
                 >
@@ -168,7 +177,7 @@ export function FAQSection() {
                 <p
                   className="text-[16px] leading-relaxed pt-3 pb-1"
                   style={{
-                    fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+                    fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
                     color: "#4A4A4A",
                     animation: "fadeIn 0.3s ease",
                   }}
@@ -179,6 +188,7 @@ export function FAQSection() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

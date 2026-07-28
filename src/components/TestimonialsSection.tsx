@@ -1,92 +1,46 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const testimonials = [
   {
-    quote:
-      "The setting, the pace, the level of attention. It felt more like an apprenticeship than a class.",
-    name: "Sofia Klein",
-    role: "Artisan Baker",
+    quote: "Profesionales desde el primer día. Vinieron a ver, explicaron bien y en dos días el baño quedó impecable. Sin polvo, sin escombros. Los recomiendo.",
+    name: "Rosa M.",
   },
   {
-    quote:
-      "I came expecting techniques. I left with intuition. This workshop reshaped my relationship with craft.",
-    name: "Daniel Hart",
-    role: "Restaurant Owner",
+    quote: "Teníamos la piscina con gresite en mal estado. Fueron los únicos que supieron cómo arreglarlo sin vaciarla. Resultado perfecto. Muy contentos.",
+    name: "Jordi L.",
   },
   {
-    quote:
-      "This completely changed how I approach dough and teaching. I've never experienced anything like it.",
-    name: "Elena Moretti",
-    role: "Private Chef",
+    quote: "Reformaron el baño encima del azulejo antiguo. Trabajo limpio, cumplieron plazos y el acabado quedó muy bien. Los volveríamos a contratar.",
+    name: "Carmen G.",
   },
   {
-    quote:
-      "This is not for everyone, and that's exactly why it's powerful. If you're serious, it's worth every investment.",
-    name: "Emily Alvarez",
-    role: "Food Consultant",
+    quote: "Trabajo excelente. Atentos a los detalles, profesionales y sin sorpresas. Se nota que tienen experiencia. Muy recomendables.",
+    name: "Núria P.",
+  },
+  {
+    quote: "Son atentos, te explican todo con claridad y cumplen lo que prometen. El resultado habla por sí solo.",
+    name: "Miguel R.",
+  },
+  {
+    quote: "Llevaba años queriendo cambiar el suelo del salón. Sin obra, sin caos. Perfecto.",
+    name: "Lucía F.",
+  },
+  {
+    quote: "Muy profesionales, presupuesto claro y sin sorpresas en obra. Eso es lo que necesitaba.",
+    name: "David T.",
+  },
+  {
+    quote: "El microcemento quedó impecable. Se ve que saben lo que hacen.",
+    name: "Silvia H.",
+  },
+  {
+    quote: "Cumplieron con los plazos, mantuvieron todo limpio y el acabado es de primera. Recomendados.",
+    name: "Antonio V.",
   },
 ];
 
-function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className="rounded-[10px] p-10 flex flex-col gap-6"
-      style={{
-        backgroundColor: "#D4D4D4",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(32px)",
-        transition: `opacity 0.7s ease ${index * 0.08}s, transform 0.7s ease ${index * 0.08}s`,
-      }}
-    >
-      <p
-        className="leading-relaxed flex-1 text-[24px]"
-        style={{
-          fontFamily: '"Instrument Serif", Georgia, serif',
-          fontStyle: "italic",
-          color: "#111111",
-        }}
-      >
-        &ldquo;{t.quote}&rdquo;
-      </p>
-      <div>
-        <p
-          className="text-[16px] font-medium"
-          style={{
-            fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-            color: "#111111",
-          }}
-        >
-          {t.name}
-        </p>
-        <p
-          className="text-[14px]"
-          style={{
-            fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-            color: "#4A4A4A",
-          }}
-        >
-          {t.role}
-        </p>
-      </div>
-    </div>
-  );
-}
+const loopItems = [...testimonials, ...testimonials];
 
 export function TestimonialsSection() {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -104,45 +58,100 @@ export function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="px-6 py-24 md:px-20" style={{ backgroundColor: "#F5F5F5" }}>
-      {/* Header */}
-      <div
-        ref={headerRef}
-        className="text-center mb-16"
-        style={{
-          opacity: headerVis ? 1 : 0,
-          transform: headerVis ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 0.8s ease, transform 0.8s ease",
-        }}
-      >
-        <h2
-          className="mb-3 leading-tight"
+    <section className="py-24" style={{ backgroundColor: "#F5F5F5", overflow: "hidden" }}>
+      <style>{`
+        .tm-track {
+          display: flex;
+          gap: 20px;
+          width: max-content;
+          animation: tm-marquee 32s linear infinite;
+          will-change: transform;
+        }
+        .tm-viewport:hover .tm-track {
+          animation-play-state: paused;
+        }
+        @keyframes tm-marquee {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .tm-card {
+          flex: 0 0 auto;
+          width: 340px;
+          background-color: #D4D4D4;
+          border-radius: 10px;
+          padding: 2.5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          min-height: 220px;
+          box-sizing: border-box;
+        }
+        @media (max-width: 768px) {
+          .tm-card {
+            width: 280px;
+            min-height: auto;
+            padding: 1.75rem;
+          }
+        }
+      `}</style>
+
+      <div className="dc-container">
+        <div
+          ref={headerRef}
+          className="text-center mb-16"
           style={{
-            fontFamily: '"Instrument Serif", Georgia, serif',
-            fontStyle: "italic",
-            fontSize: "clamp(36px, 5vw, 56px)",
-            color: "#111111",
-            letterSpacing: "-0.3px",
+            opacity: headerVis ? 1 : 0,
+            transform: headerVis ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.8s ease, transform 0.8s ease",
           }}
         >
-          From Past Participants
-        </h2>
-        <p
-          className="text-[18px]"
-          style={{
-            color: "#4A4A4A",
-            fontFamily: "Satoshi, ui-sans-serif, sans-serif",
-          }}
-        >
-          Reflections from those who&apos;ve been inside the experience.
-        </p>
+          <h2
+            style={{
+              fontFamily: '"Instrument Serif", Georgia, serif',
+              fontStyle: "italic",
+              fontSize: "clamp(36px, 5vw, 56px)",
+              color: "#111111",
+              letterSpacing: "-0.3px",
+              lineHeight: 1.1,
+            }}
+          >
+            Lo que dicen nuestros clientes
+          </h2>
+        </div>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[1000px] mx-auto">
-        {testimonials.map((t, i) => (
-          <TestimonialCard key={t.name} t={t} index={i} />
-        ))}
+      {/* Marquee — full bleed, no container padding */}
+      <div className="tm-viewport" style={{ width: "100%", overflow: "hidden" }}>
+        <div className="tm-track">
+          {loopItems.map((t, i) => (
+            <div key={i} className="tm-card">
+              <p
+                style={{
+                  fontFamily: '"Instrument Serif", Georgia, serif',
+                  fontStyle: "italic",
+                  fontSize: "clamp(16px, 1.4vw, 20px)",
+                  color: "#111111",
+                  lineHeight: 1.5,
+                  flex: 1,
+                  margin: 0,
+                }}
+              >
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              <p
+                style={{
+                  fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#111111",
+                  margin: 0,
+                }}
+              >
+                {t.name}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

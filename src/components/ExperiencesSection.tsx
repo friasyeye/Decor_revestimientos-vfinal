@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 const services = [
   {
@@ -7,30 +8,28 @@ const services = [
     badges: ["Microcemento en baños", "Platos de ducha", "Estanqueidad garantizada"],
     summary: "Transformamos baños en espacios continuos sin juntas. Platos de ducha integrados, lavabos de obra y paredes impermeables con garantía de estanqueidad.",
     detail: "Un baño con microcemento o Mortex no tiene juntas que limpiar, no acumula hongos en las grietas y es completamente impermeable. Aplicamos sobre azulejos existentes sin necesidad de obra, en 1-2 días. Acabado mate o satinado, con textura antideslizante si lo requieres.",
+    img: "/images/servicios_baño_or.webp",
   },
   {
-    title: "Suelos interiores y exteriores",
-    badges: ["Suelo continuo sin juntas", "Salones y terrazas", "Durabilidad premium"],
+    title: "Cocinas",
+    badges: ["Suelo y paredes sin juntas", "Encimeras a medida", "Resistente a grasa y humedad"],
+    summary: "Renovamos suelo, paredes y encimeras de cocina en una sola intervención. Superficie continua, sin juntas donde se acumule la grasa, lista para el uso diario.",
+    detail: "Aplicamos directamente sobre azulejo, cerámica o revestimiento existente, sin picar ni generar escombros. Para encimeras y frentes de cocina usamos Mortex, más denso y resistente a la abrasión, con un tacto mineral que recuerda a la piedra natural.",
+    img: "/images/servicios_cocina_or.webp",
+  },
+  {
+    title: "Suelos, terrazas y exteriores",
+    badges: ["Suelo continuo sin juntas", "Terrazas y patios", "Durabilidad premium"],
     summary: "Pavimentos continuos para salones, pasillos, terrazas y patios. Sin juntas, sin grietas, amplitud visual garantizada.",
     detail: "El suelo de microcemento se aplica sobre cerámica, hormigón o madera preparada. Crea una sensación de amplitud porque no hay cortes visuales. Para exteriores aplicamos con textura rugosa antideslizante y resistencia UV. Perfecta durabilidad en Barcelona.",
+    img: "/images/servicios_terraza_or.webp",
   },
   {
     title: "Piscinas y zonas sumergidas",
     badges: ["Mortex para piscinas", "Sin gresite", "Estanqueidad absoluta"],
     summary: "Revestimiento del vaso de piscina y jacuzzi con Mortex. Estanqueidad absoluta, resistente a cloro y químicos del agua.",
     detail: "Es la aplicación técnicamente más exigente de nuestro catálogo. Mortex es impermeable por naturaleza y absorbe micro-tensiones del soporte, evitando filtraciones. No necesita gresite ni juntas de dilatación. Certificación de aplicador obligatoria — nosotros la tenemos.",
-  },
-  {
-    title: "Escaleras",
-    badges: ["Escaleras de diseño", "Pieza única sin juntas", "Alta durabilidad"],
-    summary: "Transformamos escaleras en obra de diseño de una sola pieza. Eliminan cortes y juntas, con dureza mecánica para alto tránsito.",
-    detail: "Una escalera revestida en microcemento o Mortex es fácil de mantener, cómoda de subir y estéticamente limpia. Mortex aporta la dureza necesaria para escaleras de mucho uso. Aplicamos sobre madera, hormigón o metal.",
-  },
-  {
-    title: "Encimeras, mobiliario y proyectos especiales",
-    badges: ["Encimeras de cocina", "Mobiliario de autor", "Acabado mineral"],
-    summary: "Aplicación sobre muebles, encimeras y proyectos de diseño. Tacto mineral que recuerda a la piedra natural.",
-    detail: "Para interioristas y arquitectos que diseñan espacios singulares. Aplicamos sobre MDF, madera, acero y superficies no convencionales. Acabado personalizado según proyecto. Garantía total de adhesión.",
+    img: "/images/servicios_piscina_or.webp",
   },
 ];
 
@@ -42,11 +41,15 @@ const badgeColors = [
 
 export function ExperiencesSection() {
   const [open, setOpen] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   return (
     <section
       style={{
         backgroundColor: "#F5F5F5",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "flex-start",
         paddingTop: 80,
         paddingBottom: 100,
         borderRadius: "30px 30px 0 0",
@@ -55,7 +58,7 @@ export function ExperiencesSection() {
         zIndex: 2,
       }}
     >
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 48px" }}>
+      <div className="dc-container">
 
         {/* Header */}
         <h2
@@ -96,37 +99,91 @@ export function ExperiencesSection() {
               >
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
+                  onMouseEnter={() => setHovered(i)}
+                  onMouseLeave={() => setHovered(null)}
                   style={{
                     width: "100%",
                     background: "none",
                     border: "none",
                     cursor: "pointer",
-                    padding: "32px 0",
+                    padding: "40px 0",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: 16,
                     textAlign: "left",
+                    position: "relative",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flex: 1, gap: 24 }}>
-                    <h3
-                      style={{
-                        fontFamily: "Instrument Serif, Georgia, serif",
-                        fontStyle: "italic",
-                        fontSize: "clamp(22px, 2.4vw, 32px)",
-                        color: isOpen ? "#111111" : "#4A4A4A",
-                        margin: 0,
-                        transition: "color 0.3s ease",
-                        lineHeight: 1.2,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {s.title}
-                    </h3>
+                  {/* Imagen hover */}
+                  <div
+                    className="hidden md:block"
+                    style={{
+                      position: "absolute",
+                      right: 52,
+                      top: "50%",
+                      transform: hovered === i ? "translateY(-50%) scale(1) rotate(-4deg)" : "translateY(-50%) scale(0.92) rotate(-4deg)",
+                      opacity: hovered === i ? 1 : 0,
+                      transition: "opacity 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1)",
+                      pointerEvents: "none",
+                      zIndex: 10,
+                      width: 220,
+                      height: 150,
+                      borderRadius: 8,
+                      overflow: "hidden",
+                      boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+                    }}
+                  >
+                    <Image src={s.img} alt={s.title} fill style={{ objectFit: "cover" }} sizes="220px" quality={90} />
+                  </div>
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flex: 1, gap: 24, minWidth: 0 }}>
+                    {/* Título + badges móvil */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0 }}>
+                      <h3
+                        style={{
+                          fontFamily: "Instrument Serif, Georgia, serif",
+                          fontStyle: "italic",
+                          fontSize: "clamp(22px, 2.4vw, 32px)",
+                          color: isOpen ? "#111111" : "#4A4A4A",
+                          margin: 0,
+                          transition: "color 0.3s ease",
+                          lineHeight: 1.2,
+                          minWidth: 0,
+                          wordBreak: "break-word",
+                        }}
+                      >
+                        {s.title}
+                      </h3>
 
-                    {/* Badges a la derecha */}
-                    <div className="hidden md:flex" style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "flex-end" }}>
+                      {/* Badges — solo móvil, debajo del título, una sola fila */}
+                      <div className="flex md:hidden" style={{ flexWrap: "nowrap", gap: 5 }}>
+                        {s.badges.map((b, bi) => {
+                          const c = badgeColors[bi % badgeColors.length];
+                          return (
+                            <span
+                              key={bi}
+                              style={{
+                                fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+                                fontSize: "10px",
+                                fontWeight: 500,
+                                letterSpacing: "0.02em",
+                                padding: "3px 8px",
+                                borderRadius: 999,
+                                backgroundColor: c.bg,
+                                color: c.text,
+                                whiteSpace: "nowrap",
+                                flexShrink: 1,
+                              }}
+                            >
+                              {b}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Badges a la derecha — solo desktop */}
+                    <div className="hidden md:flex" style={{ flexWrap: "wrap", gap: 8, justifyContent: "flex-end" }}>
                       {s.badges.map((b, bi) => {
                         const c = badgeColors[bi % badgeColors.length];
                         return (
@@ -153,6 +210,8 @@ export function ExperiencesSection() {
                   <span
                     style={{
                       flexShrink: 0,
+                      alignSelf: "flex-start",
+                      marginTop: "4px",
                       width: 28,
                       height: 28,
                       borderRadius: "50%",
@@ -187,6 +246,7 @@ export function ExperiencesSection() {
                           color: "#3A3A3A",
                           lineHeight: 1.7,
                           marginBottom: "0.9rem",
+                          maxWidth: "68ch",
                         }}
                       >
                         {s.summary}
@@ -198,6 +258,7 @@ export function ExperiencesSection() {
                           fontSize: "clamp(13px, 1.3vw, 15px)",
                           color: "#6B6B6B",
                           lineHeight: 1.75,
+                          maxWidth: "68ch",
                         }}
                       >
                         {s.detail}
@@ -209,6 +270,48 @@ export function ExperiencesSection() {
             );
           })}
         </div>
+
+        {/* Link a superficies */}
+        <a
+          href="/superficies"
+          className="group"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 14,
+            marginTop: 72,
+            textDecoration: "none",
+            color: "#111111",
+          }}
+        >
+          <span
+            style={{
+              flexShrink: 0,
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: "1px solid rgba(17,17,17,0.2)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 16,
+              transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1), background-color 0.3s ease, color 0.3s ease",
+            }}
+            className="group-hover:translate-x-1 group-hover:bg-[#111111] group-hover:text-[#F5F5F5]"
+          >
+            →
+          </span>
+          <span
+            style={{
+              fontFamily: "Satoshi, ui-sans-serif, sans-serif",
+              fontSize: "clamp(14.5px, 1.4vw, 16px)",
+              fontWeight: 500,
+              color: "#4A4A4A",
+            }}
+          >
+            ¿Tu superficie no aparece aquí? Trabajamos sobre casi cualquier material
+          </span>
+        </a>
       </div>
     </section>
   );
