@@ -14,12 +14,12 @@ const SWATCHES = [
 const CATALOGS = [
   {
     label: "Ver carta de colores Microcemento →",
-    href: "https://decorrevestimientos.com/Decor_carta_colores.pdf",
+    href: "/Decor_carta_colores.pdf",
     note: "Gamas minerales y texturas suaves para suelos y paredes.",
   },
   {
     label: "Ver carta de colores Mortex →",
-    href: "https://decorrevestimientos.com/Decor_carta_mortex.pdf",
+    href: "/Decor_carta_mortex.pdf",
     note: "Tonos orgánicos y acabados de alta resistencia técnica.",
   },
 ];
